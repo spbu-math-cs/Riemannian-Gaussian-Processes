@@ -32,7 +32,7 @@ if __name__ == '__main__':
     parser = argument_parser()
     args = parser.parse_args()
 
-    mesh = Mesh('meshes/dragon_connected.msh', dim=3)
+    mesh = Mesh('resources/meshes/dragon_connected.msh', dim=3)
     num_eigenpairs = args.num_eigenpairs
 
     print('Constructing ground truth. It may take a while')

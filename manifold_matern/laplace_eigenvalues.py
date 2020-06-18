@@ -88,7 +88,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     print('Reading mesh')
-    mesh = Mesh('meshes/dragon_connected.msh', dim=3)
+    mesh = Mesh('resources/meshes/dragon_connected.msh', dim=3)
     print('Ncells', mesh.num_vertices())
 
     V = FunctionSpace(mesh, "Lagrange", 1)

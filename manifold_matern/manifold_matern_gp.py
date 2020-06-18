@@ -7,6 +7,7 @@ from autograd import elementwise_grad as egrad
 from .laplace_eigenvalues import get_eigenpairs
 from .utils import jitchol
 
+
 class ManifoldMaternGP(paramz.Model):
     """
     Interface for GPs on Riemannian Manifolds.
@@ -64,9 +65,12 @@ class ManifoldMaternGP(paramz.Model):
             self.eigenvalues, self.eigenfunctions = eigenpairs
         self.eigenfunctions = self.eigenfunctions.T
         self.nu = nu
-        self.kappa = paramz.Param('kappa', kappa)
-        self.sigma_f = paramz.Param('sigma_f', sigma_f)
-        self.sigma_n = paramz.Param('sigma_n', sigma_n)
+        self.kappa = paramz.Param('kappa', kappa,
+                                  default_constraint=paramz.transformations.Logexp())
+        self.sigma_f = paramz.Param('sigma_f', sigma_f,
+                                    default_constraint=paramz.transformations.Logexp())
+        self.sigma_n = paramz.Param('sigma_n', sigma_n,
+                                    default_constraint=paramz.transformations.Logexp())
         self.link_parameters(self.kappa, self.sigma_f, self.sigma_n)
 
         self.X = X

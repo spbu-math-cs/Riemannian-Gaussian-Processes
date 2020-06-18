@@ -1,5 +1,11 @@
 # Riemannian Gaussian Processes
 
+<div>
+  <img height="210" src="./resources/img/1_mean.png">
+  <img height="210" src="./resources/img/1_sample_0.png">
+  <img height="210" src="./resources/img/1_std.png">
+</div>
+
 ## Disclaimer
 
 This is supplementary code for the NeurIPS paper "Matern Gaussian processes on Riemannian manifolds".

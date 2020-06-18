@@ -1,3 +1,6 @@
+""" Utility functions. """
+
+
 import autograd.numpy as np
 from autograd.numpy.linalg import cholesky
 import warnings
@@ -9,6 +12,13 @@ import networkx as nx
 def jitchol(mat, jitter=0):
     """Run Cholesky decomposition with an increasing jitter,
     until the jitter becomes too large.
+
+    Arguments
+    ---------
+    mat : (m, m) np.ndarray
+        Positive-definite matrix
+    jitter : float
+        Initial jitter
     """
     try:
         chol = cholesky(mat)
@@ -16,7 +26,7 @@ def jitchol(mat, jitter=0):
     except np.linalg.LinAlgError:
         new_jitter = jitter*10.0 if jitter > 0.0 else 1e-15
         if new_jitter > 1.0:
-            raise RuntimeError('Matrix not positive definite, even with jitter')
+            raise RuntimeError('Matrix not positive definite even with jitter')
         warnings.warn(
             'Matrix not positive-definite, adding jitter {:e}'
             .format(new_jitter),
@@ -27,18 +37,51 @@ def jitchol(mat, jitter=0):
 def export_fun(fname, *funs):
     """
     Export a list of functions to a VTK file (.pvd).
+
+    Arguments
+    ---------
+    fname : str
+        Filename to export to
+    *funs : firedrake.Function
+        Any number of functions to export
     """
     outfile = File(fname)
     outfile.write(*funs)
 
 
 def convert_to_firedrake_function(function_space, raw_data):
+    """
+    Convert raw function values to `firedrake.Function` object.
+
+    Arguments
+    ---------
+    function_space : firedrake.FunctionSpace
+    raw_data : np.ndarray
+
+    Returns:
+    fun : firedrake.Function
+    """
     fun = Function(function_space)
     fun.vector()[:] = raw_data
     return fun
 
 
 def mesh_triangulation(mesh):
+    """
+    Return vertex coordinates and triangles that constitute a mesh.
+
+    A triangle is represented as a 3-tuple with vertex indices that lie in
+    the given triangle.
+
+    Arguments
+    ---------
+    mesh : firedrake.Mesh
+
+    Returns
+    -------
+    coordinates : np.ndarray
+    triangles : np.ndarray
+    """
     assert mesh.ufl_cell().cellname() == 'triangle', \
         "Only triangular meshes are supported"
 
@@ -53,10 +96,25 @@ def mesh_triangulation(mesh):
 
 
 def rescale_eigenfunctions(eigenfunctions, scale_factor=1.0):
+    """ Scale eigenfunctions by a `scale_factor` """
     return scale_factor * eigenfunctions
 
 
 def construct_mesh_graph(mesh):
+    """
+    Construct a graph given a mesh.
+    Vertices of the graphs are mesh vertices.
+    Two vertices are connected by an edge if there is a triangle in the mesh
+    that these vertices lie in.
+
+    Arguments
+    ---------
+    mesh : firedrake.Mesh
+
+    Returns
+    -------
+    G : networkx.Graph
+    """
     import numpy
     coordinates = mesh.coordinates.dat.data_ro
     cell_node_map = mesh.coordinates.cell_node_map().values
@@ -90,6 +148,7 @@ def construct_mesh_graph(mesh):
 
 
 def check_mesh_connected(mesh, graph=None):
+    """ Check if the mesh represents a connected manifold. """
     if graph is None:
         graph = construct_mesh_graph(mesh)
 

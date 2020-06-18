@@ -1,3 +1,5 @@
+""" High-level interface to compute Laplace-Beltrami eigenpairs on a mesh. """
+
 import numpy as np
 from firedrake import *
 from firedrake.petsc import PETSc
@@ -14,15 +16,22 @@ def get_eigenpairs(mesh, V, num_eigvals=100, eps_target=1.0):
     """
     Get eigenvalues and corresponding eigenfunctions of the Laplace-Beltrami
 
-    `mesh` is a firedrake's Mesh
-    `V` is firedrake's FunctionSpace
+    Arguments
+    ---------
+    mesh : firedrake.Mesh
+    V :  firedrake.FunctionSpace
+    num_eigvals : int
+        Number of eigenvalues to retrieve.
+    eps_target : float
+        Target for SLEPc shift-invert arnoldi method.
 
-    Return two ndarrays:
-    `eigenvalues` of shape (num_eigvals,) 
-    `eigenfunctions` of shape (num_eigvals, num_mesh_nodes)
+    Returns
+    -------
+    eigenvalues : (num_eigvals,) np.ndarray
+    eigenfunctions :  (num_eigvals, num_mesh_nodes) np.ndarray
     """
-    
-    ### Define Laplace-Beltrami eigenproblem
+
+    # Define Laplace-Beltrami eigenproblem
     psi, phi = TestFunction(V), TrialFunction(V)
     L = inner(grad(phi), grad(psi)) * dx
     M = phi * psi * dx
@@ -30,7 +39,7 @@ def get_eigenpairs(mesh, V, num_eigvals=100, eps_target=1.0):
     petsc_L = assemble(L).M.handle
     petsc_M = assemble(M).M.handle
 
-    ### Run eigensolver
+    # Run eigensolver
     opts = PETSc.Options()
     opts.setValue("eps_type", "arnoldi")
     opts.setValue('eps_gen_hermitian', None)
@@ -72,7 +81,6 @@ def get_eigenpairs(mesh, V, num_eigvals=100, eps_target=1.0):
 
 
 if __name__ == '__main__':
-    import os
     import matplotlib.pyplot as plt
     from .cli import argument_parser
 

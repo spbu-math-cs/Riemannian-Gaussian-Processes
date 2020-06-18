@@ -77,3 +77,12 @@ If you run into issues with `mayavi` rendering using `PyQt` backend you may want
 export ETS_TOOLKIT=wx
 ```
 should fix this.
+
+## Library usage
+You can also use `manifold_matern` as a library to train a GP on a mesh. The library provides `ManifoldMaternGP` class:
+```python
+>>> from  manifold_matern import ManifoldMaternGP
+>>> gp = ManifoldMaternGP(mesh, V, X, Y, eigenpairs)
+>>> gp.optimize()
+```
+Please refer to the documentation for details and to our demo as an example.

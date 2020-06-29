@@ -1,9 +1,9 @@
 # Riemannian Gaussian Processes
 
 <div>
-  <img height="210" src="./resources/img/1_mean.png">
-  <img height="210" src="./resources/img/1_sample_0.png">
-  <img height="210" src="./resources/img/1_std.png">
+  <img width="33%" src="./resources/img/1_mean.png">
+  <img width="33%" src="./resources/img/1_sample_0.png">
+  <img width="33%" src="./resources/img/1_std.png">
 </div>
 
 ## Disclaimer

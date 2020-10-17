@@ -92,6 +92,6 @@ Please refer to the documentation for details and to our demo as an example.
 @article{borovitskiy2020,
     title={Matern Gaussian processes on Riemannian manifolds},
     author={Viacheslav Borovitskiy and Alexander Terenin and Peter Mostowsky and Marc Peter Deisenroth},
-    journal={arXiv:2006.10160},
+    booktitle={Advances in Neural Information Processing Systems},
     year={2020}}
 ```

@@ -17,11 +17,12 @@ We use and have run our code on Python 3.
 
 The code relies heavily on the [Firedrake package](https://www.firedrakeproject.org). In order to run our demo, please follow the installation instructions of the Firedrake. **Note** that Firedrake may take some time to install.
 
-You should also have [paramz](https://github.com/sods/paramz), [autograd](https://github.com/HIPS/autograd) and [networkx](https://networkx.github.io/) installed inside `firedrake` virtual environment. This could be done by a simple
+You should also have [paramz](https://github.com/sods/paramz), [autograd](https://github.com/HIPS/autograd) and [networkx](https://networkx.github.io/) installed inside `firedrake` virtual environment. 
+Simply run 
 ```
-pip install paramz autograd networkx
+pip install -e .
 ```
-with `firedrake` virtual environment activated.
+with `firedrake` virtual environment activated. This will install the `manifold_matern` package and the dependencies.
 
 ## Usage
 

@@ -1,14 +1,14 @@
 # Riemannian Gaussian Processes
 
 <div>
-  <img height="210" src="./resources/img/1_mean.png">
-  <img height="210" src="./resources/img/1_sample_0.png">
-  <img height="210" src="./resources/img/1_std.png">
+  <img width="32%" src="./resources/img/1_mean.png">
+  <img width="32%" src="./resources/img/1_sample_0.png">
+  <img width="32%" src="./resources/img/1_std.png">
 </div>
 
 ## Disclaimer
 
-This is supplementary code for the NeurIPS paper "Matern Gaussian processes on Riemannian manifolds".
+This is supplementary code for the paper ["Matern Gaussian processes on Riemannian manifolds"](https://arxiv.org/abs/2006.10160).
 Please note that the code is provided only as a demo.  The demo shows the example of a Gaussian process regression on the dragon manifold with a Matern kernel defined on the manifold. Additional info can be found in the paper and in the Appendix A.
 
 ## Preliminaries
@@ -87,3 +87,12 @@ You can also use `manifold_matern` as a library to train a GP on a mesh. The lib
 >>> gp.optimize()
 ```
 Please refer to the documentation for details and to our demo as an example.
+
+## Citing
+```
+@article{borovitskiy2020,
+    title={Matern Gaussian processes on Riemannian manifolds},
+    author={Viacheslav Borovitskiy and Alexander Terenin and Peter Mostowsky and Marc Peter Deisenroth},
+    booktitle={Advances in Neural Information Processing Systems},
+    year={2020}}
+```
